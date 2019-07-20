@@ -11,8 +11,7 @@ namespace ImageSearchBot.ImageSearch
 
         public BingImageSearch(string botPrefix, ImageSearchConfig config) : base(botPrefix, config)
         {
-            var keyEnvVar = $"{BotPrefix}_BING_KEY";
-            var subscriptionKey = Environment.GetEnvironmentVariable(keyEnvVar);
+            var subscriptionKey = Environment.GetEnvironmentVariable("BING_KEY") ?? Environment.GetEnvironmentVariable($"{BotPrefix}_BING_KEY");
             _client = new ImageSearchClient(new ApiKeyServiceClientCredentials(subscriptionKey));
         }
 
