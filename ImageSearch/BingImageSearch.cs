@@ -9,6 +9,8 @@ namespace ImageSearchBot.ImageSearch
     {
         private readonly ImageSearchClient _client;
 
+        public override int MaxImages => 150;
+        
         public BingImageSearch(string botPrefix, ImageSearchConfig config) : base(botPrefix, config)
         {
             var subscriptionKey = Environment.GetEnvironmentVariable("BING_KEY") ?? Environment.GetEnvironmentVariable($"{BotPrefix}_BING_KEY");
@@ -19,15 +21,15 @@ namespace ImageSearchBot.ImageSearch
         {
             _client.Dispose();
         }
-
-        public override byte[] GetImage(int index, int count)
+        
+        public override byte[] GetImage(int index)
         {
             var imageResults = _client.Images.SearchAsync(
                 Config.Query, 
                 safeSearch: Config.IncludeNsfw ?? false ? "Off" : "Moderate",
-                count: count).Result; //search query
+                count: MaxImages).Result; //search query
 
-            var clampedIndex = Math.Clamp(index, 0, imageResults.Value.Count-1);
+            var clampedIndex = Math.Clamp(index, 0, imageResults.Value.Count);
             
             var imageUrl = imageResults.Value[clampedIndex].ContentUrl;
             using (var webClient = new WebClient())

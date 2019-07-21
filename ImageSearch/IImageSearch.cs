@@ -7,12 +7,16 @@ namespace ImageSearchBot.ImageSearch
     {
         string BotPrefix { get; }
         
-        byte[] GetImage(int index, int count);
+        int MaxImages { get; }
+        
+        byte[] GetImage(int index);
     }
 
     public abstract class ImageSearch : IImageSearch
     {
         public string BotPrefix { get; }
+        
+        public abstract int MaxImages { get; }
 
         protected ImageSearchConfig Config  { get; }
 
@@ -24,6 +28,6 @@ namespace ImageSearchBot.ImageSearch
         
         public abstract void Dispose();
 
-        public abstract byte[] GetImage(int index, int count);
+        public abstract byte[] GetImage(int index);
     }
 }

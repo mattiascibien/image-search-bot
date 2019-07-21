@@ -75,7 +75,7 @@ namespace ImageSearchBot
                 var random = new Random((int)DateTime.Now.Ticks);
                 if (hasKeyword)
                 {
-                    var image = _imageSearch.GetImage(random.Next(MaxImages), MaxImages);
+                    var image = _imageSearch.GetImage(random.Next(_imageSearch.MaxImages));
 
                     using (var memoryStream = new MemoryStream(image))
                     {
