@@ -11,18 +11,15 @@ namespace ImageSearchBot
 {
     public class ImgBot
     {
-        private const int MaxImages = 1000;
+        private const int MaxImages = 150;
         
         private readonly TelegramBotClient _bot;
         private readonly User _me;
         private readonly BotConfig _config;
         private readonly IImageSearch _imageSearch;
-        private readonly Random _random;
 
         public ImgBot(BotConfig config, IImageSearch imageSearch)
         {
-            _random = new Random();
-            
             _config = config;
             _imageSearch = imageSearch;
             _bot = new TelegramBotClient(Environment.GetEnvironmentVariable($"{_config.Prefix}_TELEGRAM_KEY"));
@@ -74,23 +71,24 @@ namespace ImageSearchBot
                     if (hasKeyword)
                         break;
                 }
-                
+
+                var random = new Random((int)DateTime.Now.Ticks);
                 if (hasKeyword)
                 {
-                    var image = _imageSearch.GetImage(_random.Next(MaxImages), MaxImages);
+                    var image = _imageSearch.GetImage(random.Next(MaxImages), MaxImages);
 
                     using (var memoryStream = new MemoryStream(image))
                     {
                         await _bot.SendPhotoAsync(
                             message.Chat.Id,
                             memoryStream,
-                            _config.Responses[_random.Next(_config.Responses.Count)]);
+                            _config.Responses[random.Next(_config.Responses.Count)]);
                     }
                 }
                 else
                 {
                     await _bot.SendTextMessageAsync(message.Chat.Id,
-                        _config.GreetingsMessages[_random.Next(_config.GreetingsMessages.Count)]);
+                        _config.GreetingsMessages[random.Next(_config.GreetingsMessages.Count)]);
                 }
             }
         }
