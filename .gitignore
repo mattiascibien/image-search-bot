@@ -595,5 +595,6 @@ fabric.properties
 # Custom
 
 .env
+.idea
 
 # End custom

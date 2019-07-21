@@ -11,7 +11,7 @@ namespace ImageSearchBot
 {
     public class ImgBot
     {
-        private const int MaxImages = 500;
+        private const int MaxImages = 1000;
         
         private readonly TelegramBotClient _bot;
         private readonly User _me;
@@ -65,8 +65,17 @@ namespace ImageSearchBot
 
             if (isPrivate || message.Text.Contains($"@{_me.Username}"))
             {
-                // TODO: configurable keywords
-                if (message.Text.ToLower().Contains("photo"))
+                var hasKeyword = false;
+
+                // check if we have at least one keyword
+                foreach (var keyword in _config.Keywords)
+                {
+                    hasKeyword = message.Text.ToLower().Contains(keyword.ToLower());
+                    if (hasKeyword)
+                        break;
+                }
+                
+                if (hasKeyword)
                 {
                     var image = _imageSearch.GetImage(_random.Next(MaxImages), MaxImages);
 
