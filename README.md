@@ -1,4 +1,4 @@
-# image-search-bot
+# image-search-bot [![Build Status](https://dev.azure.com/mattiascibien/image-search-bot/_apis/build/status/mattiascibien.image-search-bot?branchName=master)](https://dev.azure.com/mattiascibien/image-search-bot/_build/latest?definitionId=52&branchName=master)
 Configurable apps for running Telegram Bots that responds to photo Image Queries
 
 ## Bots using this framework
