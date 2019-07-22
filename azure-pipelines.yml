@@ -14,7 +14,7 @@ stages:
         artifact: dotnet_cli
 
 - stage: build
-  condition: ne($(Build.Reason) != "PullRequest)
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
@@ -33,7 +33,7 @@ stages:
         artifact: macos
 
 - stage: docker
-  condition: ne($(Build.Reason) != "PullRequest)
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
    - job: dockerhub
      continueOnError: false
