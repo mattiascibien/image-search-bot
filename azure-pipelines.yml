@@ -11,6 +11,7 @@ stages:
         artifact: dotnet_cli
 
 - stage: build
+  condition: "$(Build.Reason) != "PullRequest"
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
@@ -29,6 +30,7 @@ stages:
         artifact: macos
 
 - stage: docker
+  condition: "$(Build.Reason) != "PullRequest"
   jobs:
    - job: dockerhub
      continueOnError: false
