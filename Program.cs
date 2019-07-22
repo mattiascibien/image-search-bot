@@ -29,8 +29,8 @@ namespace ImageSearchBot
 
             // retrieve bots config inside the directory
             var configs = Directory.GetFiles(dir)
-                .Where(file => Path.GetFileName(file).ToLower().EndsWith(".botconfig.json")).ToList();
-            if (configs.Count == 0)
+                .Where(file => Path.GetFileName(file).EndsWith(".botconfig.json", StringComparison.InvariantCultureIgnoreCase)).ToList();
+            if (!configs.Any())
             {
                 Console.Error.WriteLine("No bots configured. Add one like this mybot.botconfig.json");
                 Environment.Exit(1);
@@ -39,22 +39,41 @@ namespace ImageSearchBot
 
             foreach (var config in configs)
             {
-                var contents = File.ReadAllText(config);
-                var cfg = JsonConvert.DeserializeObject<RootConfig>(contents, 
-                    new JsonSerializerSettings()
-                    {
-                        ContractResolver = new CamelCasePropertyNamesContractResolver() 
-                    });
-                var imageSearchType = Type.GetType(cfg.ImageSearchConfig.Type);
-                var imageSearch = (IImageSearch)Activator.CreateInstance(imageSearchType, cfg.BotConfig.Prefix, cfg.ImageSearchConfig);
-                var imgBot = new ImgBot(cfg.BotConfig, imageSearch);
-                Bots.Add(imgBot);
-                Task.Run(() => imgBot.Run());
+                try
+                {
+                    CreateAndRunBot(config);
+                }
+                catch(Exception ex)
+                {
+                    // Let's prevent any wrong configuration to crash the app
+                    Console.WriteLine($"Bot run failed: {ex.Message}");
+                }
             }
             
             ExitEvent.WaitOne();
             Console.CancelKeyPress -= ConsoleOnCancelKeyPress;
             Bots.ForEach(b => b.Stop());
+        }
+
+        private static void CreateAndRunBot(string config)
+        {
+            var contents = File.ReadAllText(config);
+            var cfg = JsonConvert.DeserializeObject<RootConfig>(contents, 
+                new JsonSerializerSettings()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver() 
+                });
+
+            Assert.Check(cfg != null, "Root configuration must be set");
+            Assert.Check(cfg.ImageSearchConfig != null, "Bot image search configuration must be set");
+            Assert.Check(cfg.BotConfig  != null, "Bot config must be set");
+
+            var imageSearchType = Type.GetType(cfg.ImageSearchConfig.Type);
+            var imageSearch = (IImageSearch)Activator.CreateInstance(imageSearchType, cfg.BotConfig.Prefix, cfg.ImageSearchConfig);
+            var imgBot = new ImgBot(cfg.BotConfig, imageSearch);
+            Bots.Add(imgBot);
+
+            Task.Run(() => imgBot.Run());
         }
 
         private static void ConsoleOnCancelKeyPress(object sender, ConsoleCancelEventArgs e)
