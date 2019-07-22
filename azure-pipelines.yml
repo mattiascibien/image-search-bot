@@ -19,4 +19,8 @@ stages:
         publishWebProjects: false
         projects: '**/*.csproj'
         zipAfterPublish: false
-    
+        arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: 'drop'
