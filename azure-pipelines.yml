@@ -6,6 +6,6 @@ stages:
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
-        name: Dotnet-cli
+        name: dotnet_cli
         vmImage: 'ubuntu-latest'
-        artifact: dotnet-cli
+        artifact: dotnet_cli
