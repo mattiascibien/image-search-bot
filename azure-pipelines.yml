@@ -12,7 +12,7 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '''**/*.csproj'
+        projects: '**/*.csproj'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'publish'
@@ -23,4 +23,4 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
-        ArtifactName: 'drop'
+        ArtifactName: 'image-search-bot-linux'
