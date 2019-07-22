@@ -2,10 +2,28 @@ trigger:
 - master
 
 stages:
-- stage: build
+- stage: test
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
         name: dotnet_cli
         vmImage: 'ubuntu-latest'
         artifact: dotnet_cli
+
+- stage: build
+  jobs:
+    - template: .azure/build-template.yml  # Template reference
+      parameters:
+        name: linux
+        vmImage: 'ubuntu-latest'
+        artifact: linux
+    - template: .azure/build-template.yml  # Template reference
+      parameters:
+        name: windows
+        vmImage: 'windows-2019'
+        artifact: windows
+    - template: .azure/build-template.yml  # Template reference
+      parameters:
+        name: macos
+        vmImage: 'macOS-10.14'
+        artifact: macos
