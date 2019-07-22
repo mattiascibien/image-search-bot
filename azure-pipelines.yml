@@ -7,9 +7,9 @@ trigger:
 - master
 
 stages:
-- stage: Build Standalone Linux
+- stage: build_standalone
   jobs:
-  - job: Build
+  - job: build
     pool:
       vmImage: 'ubuntu-latest'
     continueOnError: false
