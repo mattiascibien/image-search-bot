@@ -17,6 +17,6 @@ stages:
       inputs:
         command: 'publish'
         publishWebProjects: false
-        projects: '''**/*.csproj'
+        projects: '**/*.csproj'
         zipAfterPublish: false
     
