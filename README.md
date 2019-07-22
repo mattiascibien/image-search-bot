@@ -3,7 +3,7 @@ Configurable apps for running Telegram Bots that responds to photo Image Queries
 
 ## Bots using this framework
 
- * [@mikesmotherbot](https://telegram.me/mikesmother_bot) - A joke bot that sends images of Cara Buono, Mike's mother in Stranger Things.
+ * [@mikesmother_bot](https://telegram.me/mikesmother_bot) - A joke bot that sends images of Cara Buono, Mike's mother in Stranger Things.
 
 ## Deveopment
  
