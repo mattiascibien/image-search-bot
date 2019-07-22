@@ -2,25 +2,10 @@ trigger:
 - master
 
 stages:
-- stage: build_standalone
+- stage: build
   jobs:
-  - job: build_linux
-    pool:
-      vmImage: 'ubuntu-latest'
-    continueOnError: false
-    steps:
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'build'
-        projects: '**/*.csproj'
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'publish'
-        publishWebProjects: false
-        projects: '**/*.csproj'
-        zipAfterPublish: false
-        arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-        ArtifactName: 'image-search-bot-linux'
+    - template: .azure/build-template.yml  # Template reference
+      parameters:
+        name: Dotnet-cli
+        vmImage: 'ubuntu-latest'
+        artifact: dotnet-cli
