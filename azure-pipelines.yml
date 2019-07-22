@@ -43,3 +43,6 @@ stages:
           repository: 'mattiascibien/image-search-bot'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
+          tags: |
+            $(Build.BuildNumber)
+            latest
