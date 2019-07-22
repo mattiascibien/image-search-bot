@@ -1,24 +1,22 @@
 {
   "botConfig": {
-    "prefix": "MMBOT",
+    "prefix": "SAMPLE",
     "greetingsMessages" : [
-      "Hello. I am Mike's Mother bot!",
+      "Hello. I am Sample bot!",
       "Nice to meet you.",
       "Ask me something.",
-      "Whats about a photo of Mike's Mother?"
     ],
     "responses": [
-      "Here she is, gorgeous as always!",
       "Here you are.",
       "Here it is"
     ],
     "keywords": [
-      "photo"
+      "picture"
     ]
   },
   "imageSearchConfig": {
     "type": "ImageSearchBot.ImageSearch.BingImageSearch",
-    "query": "cara buono",
+    "query": "sample query",
     "includeNsfw": false
   }
 }
