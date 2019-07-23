@@ -2,5 +2,6 @@ sample.botconfig.json
 .git
 .gitignore
 .env
+.vscode
 LICENSE
 README.md
