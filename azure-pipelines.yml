@@ -32,6 +32,7 @@ stages:
         runtime: osx-x64
 
 -stage: github
+  jobs:
     - job: github_release
       steps:
         - checkout: none
@@ -48,7 +49,7 @@ stages:
             assets: '$(Pipeline.Workspace)/**/*.zip'
             isDraft: true
             addChangeLog: true
-
+            compareWith: 'lastFullRelease'
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
