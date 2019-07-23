@@ -7,11 +7,7 @@ pr:
 stages:
 - stage: test
   jobs:
-    - template: .azure/build-template.yml  # Template reference
-      parameters:
-        name: dotnet_cli
-        vmImage: 'ubuntu-latest'
-        artifact: dotnet_cli
+    - template: .azure/build-test.yml  # Template reference
 
 - stage: build
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
