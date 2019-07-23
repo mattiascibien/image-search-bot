@@ -10,7 +10,7 @@ stages:
     - template: .azure/build-test.yml  # Template reference
 
 - stage: build
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
