@@ -46,7 +46,8 @@ stages:
             gitHubConnection: 'github.com'
             repositoryName: 'mattiascibien/image-search-bot'
             tagSource: manual
-            tag: $(Build.BuildNumber)
+            tag: v$(Build.BuildNumber)
+            title: Release v$(Build.BuildNumber)
             assets: '$(Pipeline.Workspace)/**/*.zip'
             isDraft: false
             addChangeLog: true
