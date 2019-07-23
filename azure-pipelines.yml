@@ -10,7 +10,7 @@ stages:
     - template: .azure/build-test.yml  # Template reference
 
 - stage: build
-  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
@@ -32,7 +32,7 @@ stages:
         runtime: osx-x64
 
 - stage: github
-  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - job: github_release
       steps:
@@ -48,7 +48,7 @@ stages:
             tagSource: manual
             tag: $(Build.BuildNumber)
             assets: '$(Pipeline.Workspace)/**/*.zip'
-            isDraft: true
+            isDraft: false
             addChangeLog: true
 
 - stage: docker
