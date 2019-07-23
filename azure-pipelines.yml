@@ -10,7 +10,7 @@ stages:
     - template: .azure/build-test.yml  # Template reference
 
 - stage: build
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
@@ -30,6 +30,25 @@ stages:
         vmImage: 'macOS-10.14'
         artifact: macos
         runtime: osx-x64
+    - job: github
+      steps:
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            buildType: 'current'
+            targetPath: '$(Pipeline.Workspace)'
+        - task: GitHubRelease@0
+          inputs:
+            gitHubConnection: 'github.com'
+            repositoryName: 'mattiascibien/image-search-bot'
+            action: 'create'
+            target: '$(Build.BuildNumber)'
+            tagSource: 'manual'
+            tag: 'v$(Build.BuildNumber)'
+            title: 'Release $(Build.BuildNumber)'
+            assets: '$(Pipeline.Workspace)/*.zip'
+            isDraft: true
+
+    
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
