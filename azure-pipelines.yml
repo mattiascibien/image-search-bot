@@ -31,7 +31,7 @@ stages:
         artifact: macos
         runtime: osx-x64
 
--stage: github
+- stage: github
   jobs:
     - job: github_release
       steps:
@@ -48,6 +48,7 @@ stages:
             tag: $(Build.BuildNumber)
             assets: '$(Pipeline.Workspace)/**/*.zip'
             isDraft: true
+            addChangeLog: true
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
