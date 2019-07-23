@@ -30,12 +30,11 @@ stages:
         vmImage: 'macOS-10.14'
         artifact: macos
         runtime: osx-x64
-    - job: github
-      dependsOn:
-      - windows
-      - macos
-      - linux
+
+-stage: github
+    - job: github_release
       steps:
+        - checkout: none
         - task: DownloadPipelineArtifact@2
           inputs:
             buildType: 'current'
@@ -45,10 +44,10 @@ stages:
             gitHubConnection: 'github.com'
             repositoryName: 'mattiascibien/image-search-bot'
             tagSource: manual
-            tag: $(Build.BuildNumber)      
+            tag: $(Build.BuildNumber)
             assets: '$(Pipeline.Workspace)/**/*.zip'
             isDraft: true
-            addChangeLog: false
+            addChangeLog: true
 
 
 - stage: docker
