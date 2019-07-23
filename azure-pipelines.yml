@@ -30,6 +30,27 @@ stages:
         vmImage: 'macOS-10.14'
         artifact: macos
         runtime: osx-x64
+    - job: release
+      dependsOn:
+        - linux
+        - windows
+        - macos
+      steps:
+      - task: GitHubRelease@0
+        inputs:
+          gitHubConnection: 'github.com'
+          repositoryName: 'mattiascibien/image-search-bot'
+          action: 'create'
+          target: '$(Build.BuildNumber)'
+          tagSource: 'manual'
+          tag: '$(Build.BuildNumber)'
+          title: 'ImageSearchBot $(Build.BuildNumber)'
+          releaseNotesSource: 'input'
+          releaseNotes: 'Nope'
+          isDraft: true
+          addChangeLog: false
+
+      
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
