@@ -17,16 +17,19 @@ stages:
         name: linux
         vmImage: 'ubuntu-latest'
         artifact: linux
+        runtime: linux-x64
     - template: .azure/build-template.yml  # Template reference
       parameters:
         name: windows
         vmImage: 'windows-2019'
         artifact: windows
+        runitme: win-x64
     - template: .azure/build-template.yml  # Template reference
       parameters:
         name: macos
         vmImage: 'macOS-10.14'
         artifact: macos
+        runtime: osx-x64
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
