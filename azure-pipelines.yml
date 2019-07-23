@@ -31,6 +31,10 @@ stages:
         artifact: macos
         runtime: osx-x64
     - job: github
+      dependsOn:
+      - windows
+      - macos
+      - linux
       steps:
         - task: DownloadPipelineArtifact@2
           inputs:
