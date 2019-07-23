@@ -53,7 +53,7 @@ stages:
             isDraft: true
             addChangeLog: false
             releaseNotesSource: 'input'
-            releaseNotes: ''
+            releaseNotes: 'test'
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
