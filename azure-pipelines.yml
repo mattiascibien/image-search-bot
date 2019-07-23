@@ -52,6 +52,8 @@ stages:
             assets: '$(Pipeline.Workspace)/**/*.zip'
             isDraft: true
             addChangeLog: false
+            releaseNotesSource: 'input'
+            releaseNotes: ''
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
