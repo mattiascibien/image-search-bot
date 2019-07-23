@@ -49,7 +49,7 @@ stages:
             tagSource: 'manual'
             tag: 'v$(Build.BuildNumber)'
             title: 'Release $(Build.BuildNumber)'
-            assets: '$(Pipeline.Workspace)/*.zip'
+            assets: '$(Pipeline.Workspace)/**/*.zip'
             isDraft: true
 
     
