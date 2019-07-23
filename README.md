@@ -14,3 +14,16 @@ Configurable apps for running Telegram Bots that responds to photo Image Queries
  * Add any required environment variables for the chosen Image Search Provider; at the moment only Bing is supported so you should set the value of `<BOT_PREFIX>_BING_KEY` to your API key (you can read more [here](https://docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/))
  * Compile and run the project.
     * If needed you can override the config directory by passing it as a command-line parameter, i.e: `./image-search-bot.exe /opt/myconfigs`
+
+## Usage
+
+### Docker
+
+Create a Dockerfile with the following contents:
+
+```docker
+FROM mattiascibien/image-search-bot:20190723.20
+COPY *.botconfig.json ./
+```
+
+Run the conrainer with `docker run --env <bot_prefix>_TELEGRAM_KEY=<api_key> --env BING_KEY=<api_key>` where BOT_PREFIX is the value you have set in your `.botconfig.json` file
