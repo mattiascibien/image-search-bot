@@ -12,5 +12,7 @@ namespace ImageSearchBot.Config
         public List<string> Responses { get; set; }
         
         public List<string> Keywords { get; set; }
+
+        public long? ChatId { get; set; }
     }
 }
