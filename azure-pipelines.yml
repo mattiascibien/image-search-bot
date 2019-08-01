@@ -53,7 +53,7 @@ stages:
             addChangeLog: true
 
 - stage: snap
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - job: release
       steps:
