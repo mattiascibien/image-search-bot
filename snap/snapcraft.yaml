@@ -3,7 +3,7 @@ version: git
 summary: Configurable Telegram Bots that respond to image queries
 description: |
   Configurable apps for running Telegram Bots that responds to photo Image Queries
-grade: devel
+grade: stable
 confinement: strict
 
 apps:
