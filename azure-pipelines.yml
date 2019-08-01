@@ -34,7 +34,7 @@ stages:
 - stage: github
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
-    - job: github_release
+    - job: release
       steps:
         - checkout: none
         - task: DownloadPipelineArtifact@2
@@ -51,6 +51,19 @@ stages:
             assets: '$(Pipeline.Workspace)/**/*.zip'
             isDraft: false
             addChangeLog: true
+
+- stage: snap
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  jobs:
+    - job: release
+      steps:
+        - bash: docker pull snapcore/snapcraft:stable
+        - bash: docker run -v "$PWD":/build -w /build snapcore/snapcraft:stable snapcraft
+        - bash: mv *.snap $(build.artifactstagingdirectory)
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(build.artifactstagingdirectory)'
+            ArtifactName: 'snap'
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
