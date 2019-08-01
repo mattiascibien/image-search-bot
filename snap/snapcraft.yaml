@@ -1,0 +1,16 @@
+name: image-search-bot
+version: 0.1
+summary: Configurable Telegram Bots that respond to image queries
+description: |
+  Configurable apps for running Telegram Bots that responds to photo Image Queries
+grade: devel
+confinement: strict
+
+apps:
+  image-search-bot:
+    command: image-search-bot
+
+parts:
+  image-search-bot:
+    source: .
+    plugin: image-search-bot
