@@ -58,7 +58,15 @@ namespace ImageSearchBot
         {
             var message = e.Message;
 
-            var isPrivate = e.Message.Chat.Type == ChatType.Private;
+            // restrict the robot to a specific chat
+            if(_config.ChatId != null && message.Chat.Id != _config.ChatId.Value)
+            {
+                await _bot.SendTextMessageAsync(message.Chat.Id,
+                        "This chat is not authorized to use this robot");
+                return;
+            }
+
+            var isPrivate = message.Chat.Type == ChatType.Private;
 
             if (isPrivate || message.Text.Contains($"@{_me.Username}"))
             {
@@ -97,6 +105,9 @@ namespace ImageSearchBot
         {
             _bot.StartReceiving(Array.Empty<UpdateType>());
             Console.WriteLine($"@{_me.Username}: started");
+            
+            if(_config.ChatId != null)
+                Console.WriteLine($"@{_me.Username}: restricted to chat {_config.ChatId}");
         }
 
         public void Stop()

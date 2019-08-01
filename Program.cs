@@ -61,7 +61,8 @@ namespace ImageSearchBot
             var cfg = JsonConvert.DeserializeObject<RootConfig>(contents, 
                 new JsonSerializerSettings()
                 {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver() 
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore
                 });
 
             Assert.Check(cfg != null, "Root configuration must be set");
