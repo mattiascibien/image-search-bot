@@ -13,4 +13,4 @@ apps:
 parts:
   image-search-bot:
     source: .
-    plugin: image-search-bot
+    plugin: dotnet
