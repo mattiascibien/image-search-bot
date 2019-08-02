@@ -24,9 +24,21 @@ namespace ImageSearchBot.ImageSearch
         
         public override byte[] GetImage(int index)
         {
+            string imageType = null;
+
+            if(Config.ImageType != null && Config.ImageType != ImageType.All)
+            {
+                if(Config.ImageType == ImageType.Animated)
+                    imageType = "AnimatedGif";
+
+                if(Config.ImageType == ImageType.Animated)
+                    imageType = "Photo";
+            }
+
             var imageResults = _client.Images.SearchAsync(
                 Config.Query, 
                 safeSearch: Config.IncludeNsfw ?? false ? "Off" : "Moderate",
+                imageType: imageType, 
                 count: MaxImages).Result; //search query
 
             var clampedIndex = Math.Clamp(index, 0, imageResults.Value.Count);
