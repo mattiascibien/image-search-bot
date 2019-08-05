@@ -596,7 +596,6 @@ fabric.properties
 
 .env
 .idea
-.vscode
 *.botconfig.json
 !sample.botconfig.json
 
