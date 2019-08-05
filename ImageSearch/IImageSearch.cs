@@ -9,7 +9,7 @@ namespace ImageSearchBot.ImageSearch
         
         int MaxImages { get; }
         
-        byte[] GetImage(int index);
+        (byte[] data, bool animated) GetImage(int index);
     }
 
     public abstract class ImageSearch : IImageSearch
@@ -28,6 +28,6 @@ namespace ImageSearchBot.ImageSearch
         
         public abstract void Dispose();
 
-        public abstract byte[] GetImage(int index);
+        public abstract (byte[] data, bool animated) GetImage(int index);
     }
 }

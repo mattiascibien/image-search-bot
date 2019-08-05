@@ -12,6 +12,12 @@
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "dotnet restore"
 
+	// Mount your .ssh folder to /root/.ssh-localhost so we can copy its contents
+	"runArgs": [ "-v", "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro" ],
+
+	// Copy the contents to the correct location and set permissions
+	"postCreateCommand": "mkdir -p ~/.ssh && cp -r ~/.ssh-localhost/* ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/*",
+
 	"extensions": [
 		"ms-vscode.csharp"
 	]

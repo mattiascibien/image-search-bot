@@ -85,12 +85,18 @@ namespace ImageSearchBot
                 {
                     var image = _imageSearch.GetImage(random.Next(_imageSearch.MaxImages));
 
-                    using (var memoryStream = new MemoryStream(image))
+                    using (var memoryStream = new MemoryStream(image.data))
                     {
-                        await _bot.SendPhotoAsync(
-                            message.Chat.Id,
-                            memoryStream,
-                            _config.Responses[random.Next(_config.Responses.Count)]);
+                        if (image.animated)
+                            await _bot.SendVideoAsync(
+                                message.Chat.Id,
+                                memoryStream,
+                                caption: _config.Responses[random.Next(_config.Responses.Count)]);
+                        else
+                            await _bot.SendPhotoAsync(
+                                message.Chat.Id,
+                                memoryStream,
+                                caption: _config.Responses[random.Next(_config.Responses.Count)]);
                     }
                 }
                 else

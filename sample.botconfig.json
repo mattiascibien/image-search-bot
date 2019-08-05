@@ -4,7 +4,7 @@
     "greetingsMessages" : [
       "Hello. I am Sample bot!",
       "Nice to meet you.",
-      "Ask me something.",
+      "Ask me something."
     ],
     "responses": [
       "Here you are.",
@@ -17,6 +17,7 @@
   "imageSearchConfig": {
     "type": "ImageSearchBot.ImageSearch.BingImageSearch",
     "query": "sample query",
-    "includeNsfw": false
+    "includeNsfw": false,
+    "imageType": "Animated"
   }
 }

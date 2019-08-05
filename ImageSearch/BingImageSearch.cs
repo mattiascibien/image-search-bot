@@ -22,11 +22,23 @@ namespace ImageSearchBot.ImageSearch
             _client.Dispose();
         }
         
-        public override byte[] GetImage(int index)
+        public override (byte[] data, bool animated) GetImage(int index)
         {
+            string imageType = null;
+
+            if(Config.ImageType != null && Config.ImageType != ImageType.All)
+            {
+                if(Config.ImageType == ImageType.Animated)
+                    imageType = "AnimatedGif";
+
+                if(Config.ImageType == ImageType.Photo)
+                    imageType = "Photo";
+            }
+
             var imageResults = _client.Images.SearchAsync(
                 Config.Query, 
                 safeSearch: Config.IncludeNsfw ?? false ? "Off" : "Moderate",
+                imageType: imageType, 
                 count: MaxImages).Result; //search query
 
             var clampedIndex = Math.Clamp(index, 0, imageResults.Value.Count);
@@ -34,7 +46,7 @@ namespace ImageSearchBot.ImageSearch
             var imageUrl = imageResults.Value[clampedIndex].ContentUrl;
             using (var webClient = new WebClient())
             {
-                return webClient.DownloadData(imageUrl);
+                return (webClient.DownloadData(imageUrl), Config.ImageType == ImageType.Animated);
             }   
         }
     }
