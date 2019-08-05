@@ -29,7 +29,8 @@ namespace ImageSearchBot
 
             // retrieve bots config inside the directory
             var configs = Directory.GetFiles(dir)
-                .Where(file => Path.GetFileName(file).EndsWith(".botconfig.json", StringComparison.InvariantCultureIgnoreCase)).ToList();
+                .Where(file => Path.GetFileName(file).EndsWith(".botconfig.json", StringComparison.InvariantCultureIgnoreCase))         
+                .ToList();
             if (!configs.Any())
             {
                 Console.Error.WriteLine("No bots configured. Add one like this mybot.botconfig.json");
