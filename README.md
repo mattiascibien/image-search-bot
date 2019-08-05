@@ -22,7 +22,7 @@ Configurable apps for running Telegram Bots that responds to photo Image Queries
 Create a Dockerfile with the following contents:
 
 ```docker
-FROM mattiascibien/image-search-bot:20190723.20
+FROM mattiascibien/image-search-bot
 COPY *.botconfig.json ./
 ```
 
