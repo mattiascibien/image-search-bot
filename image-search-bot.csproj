@@ -9,7 +9,7 @@
     <ItemGroup>
         <PackageReference Include="dotenv.net" Version="1.0.6" />
         <PackageReference Include="Microsoft.Azure.CognitiveServices.Search.ImageSearch" Version="2.0.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Telegram.Bot" Version="14.12.0" />
     </ItemGroup>
 
