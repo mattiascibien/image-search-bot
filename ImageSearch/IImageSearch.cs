@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using ImageSearchBot.Config;
 
 namespace ImageSearchBot.ImageSearch
@@ -8,8 +9,8 @@ namespace ImageSearchBot.ImageSearch
         string BotPrefix { get; }
         
         int MaxImages { get; }
-        
-        byte[] GetImage(int index);
+
+        Task<byte[]> GetImageAsync(int index);
     }
 
     public abstract class ImageSearch : IImageSearch
@@ -28,6 +29,6 @@ namespace ImageSearchBot.ImageSearch
         
         public abstract void Dispose();
 
-        public abstract byte[] GetImage(int index);
+        public abstract Task<byte[]> GetImageAsync(int index);
     }
 }

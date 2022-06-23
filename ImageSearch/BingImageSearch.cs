@@ -1,5 +1,7 @@
 using System;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using ImageSearchBot.Config;
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch;
 
@@ -22,7 +24,7 @@ namespace ImageSearchBot.ImageSearch
             _client.Dispose();
         }
         
-        public override byte[] GetImage(int index)
+        public override async Task<byte[]> GetImageAsync(int index)
         {
             var imageResults = _client.Images.SearchAsync(
                 Config.Query, 
@@ -32,10 +34,9 @@ namespace ImageSearchBot.ImageSearch
             var clampedIndex = Math.Clamp(index, 0, imageResults.Value.Count);
             
             var imageUrl = imageResults.Value[clampedIndex].ContentUrl;
-            using (var webClient = new WebClient())
-            {
-                return webClient.DownloadData(imageUrl);
-            }   
+            using var webClient = new HttpClient();
+
+            return await webClient.GetByteArrayAsync(imageUrl);
         }
     }
 }

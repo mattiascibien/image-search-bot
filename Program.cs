@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using dotenv.net;
 using ImageSearchBot.Config;
 using ImageSearchBot.ImageSearch;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace ImageSearchBot
 {
@@ -58,11 +58,11 @@ namespace ImageSearchBot
         private static void CreateAndRunBot(string config)
         {
             var contents = File.ReadAllText(config);
-            var cfg = JsonConvert.DeserializeObject<RootConfig>(contents, 
-                new JsonSerializerSettings()
+            var cfg = JsonSerializer.Deserialize<RootConfig>(contents,  
+                new JsonSerializerOptions()
                 {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    NullValueHandling = NullValueHandling.Ignore
+                    PropertyNameCaseInsensitive = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
                 });
 
             Assert.Check(cfg != null, "Root configuration must be set");
