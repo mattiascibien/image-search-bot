@@ -10,7 +10,7 @@ stages:
     - template: .azure/build-test.yml  # Template reference
 
 - stage: build
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
     - template: .azure/build-template.yml  # Template reference
       parameters:
@@ -31,26 +31,39 @@ stages:
         artifact: macos
         runtime: osx-x64
 
-- stage: github
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+# - stage: github
+#   #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+#   jobs:
+#     - job: release
+#       steps:
+#         - checkout: none
+#         - task: DownloadPipelineArtifact@2
+#           inputs:
+#             buildType: 'current'
+#             targetPath: '$(Pipeline.Workspace)'
+#         - task: GitHubRelease@0
+#           inputs:
+#             gitHubConnection: 'github.com'
+#             repositoryName: 'mattiascibien/image-search-bot'
+#             tagSource: manual
+#             tag: v$(Build.BuildNumber)
+#             title: Release v$(Build.BuildNumber)
+#             assets: '$(Pipeline.Workspace)/**/*.zip'
+#             isDraft: false
+#             addChangeLog: true
+
+- stage: snap
+  #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
-    - job: github_release
+    - job: release
       steps:
-        - checkout: none
-        - task: DownloadPipelineArtifact@2
+        - bash: docker pull snapcore/snapcraft:stable
+        - bash: docker run -v "$PWD":/build --net=host -w /build snapcore/snapcraft:stable snapcraft
+        - bash: mv *.snap $(build.artifactstagingdirectory)
+        - task: PublishBuildArtifacts@1
           inputs:
-            buildType: 'current'
-            targetPath: '$(Pipeline.Workspace)'
-        - task: GitHubRelease@0
-          inputs:
-            gitHubConnection: 'github.com'
-            repositoryName: 'mattiascibien/image-search-bot'
-            tagSource: manual
-            tag: v$(Build.BuildNumber)
-            title: Release v$(Build.BuildNumber)
-            assets: '$(Pipeline.Workspace)/**/*.zip'
-            isDraft: false
-            addChangeLog: true
+            PathtoPublish: '$(build.artifactstagingdirectory)'
+            ArtifactName: 'snap'
 
 - stage: docker
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
