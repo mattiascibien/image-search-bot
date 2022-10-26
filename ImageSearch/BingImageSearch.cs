@@ -7,6 +7,7 @@ using Microsoft.Azure.CognitiveServices.Search.ImageSearch;
 
 namespace ImageSearchBot.ImageSearch
 {
+    [Obsolete]
     public class BingImageSearch : ImageSearch
     {
         private readonly ImageSearchClient _client;
@@ -26,10 +27,10 @@ namespace ImageSearchBot.ImageSearch
         
         public override async Task<byte[]> GetImageAsync(int index)
         {
-            var imageResults = _client.Images.SearchAsync(
+            var imageResults = await _client.Images.SearchAsync(
                 Config.Query, 
                 safeSearch: Config.IncludeNsfw ?? false ? "Off" : "Moderate",
-                count: MaxImages).Result; //search query
+                count: MaxImages); //search query
 
             var clampedIndex = Math.Clamp(index, 0, imageResults.Value.Count);
             
