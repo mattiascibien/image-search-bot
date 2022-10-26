@@ -21,7 +21,7 @@ namespace ImageSearchBot
         
         public static void Main(string[] args)
         {
-            DotEnv.Config(false);
+            DotEnv.Load(new DotEnvOptions(true));
             
             Console.CancelKeyPress += ConsoleOnCancelKeyPress;
 

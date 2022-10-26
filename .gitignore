@@ -601,3 +601,4 @@ fabric.properties
 !sample.botconfig.json
 
 # End custom
+/Properties/launchSettings.json

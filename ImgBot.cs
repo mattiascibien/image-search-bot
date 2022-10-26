@@ -22,7 +22,8 @@ namespace ImageSearchBot
         {
             _config = config;
             _imageSearch = imageSearch;
-            _bot = new TelegramBotClient(Environment.GetEnvironmentVariable($"{_config.Prefix}_TELEGRAM_KEY"));
+            string token = Environment.GetEnvironmentVariable($"{_config.Prefix}_TELEGRAM_KEY");
+            _bot = new TelegramBotClient(token);
             
             _me = _bot.GetMeAsync().Result;
             
