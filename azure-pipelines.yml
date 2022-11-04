@@ -65,5 +65,5 @@ stages:
           command: 'login'
       - bash: docker buildx create --bootstrap --driver docker-container --use --platform linux/amd64,linux/arm64
         displayName: 'Create multi-arch Docker Builder'
-      - bash: cd $(Build.SourcesDirectory)/MonMusique.Bot/ && docker buildx build --no-cache --push --platform linux/amd64,linux/arm64 -f Dockerfile --tag mattiascibien/image-search-bot:latest --tag mattiascibien/image-search-bot:$(tag) .
+      - bash: cd $(Build.SourcesDirectory)/MonMusique.Bot/ && docker buildx build --no-cache --push --platform linux/amd64,linux/arm64 -f Dockerfile --tag mattiascibien/image-search-bot:latest --tag mattiascibien/image-search-bot:$(Build.BuildNumber) .
         displayName: 'Build and push Image'
