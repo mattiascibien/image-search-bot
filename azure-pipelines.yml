@@ -21,13 +21,13 @@ stages:
     - template: .azure/build-template.yml  # Template reference
       parameters:
         name: windows
-        vmImage: 'windows-2022'
+        vmImage: 'windows-latest'
         artifact: windows
         runtime: win-x64
     - template: .azure/build-template.yml  # Template reference
       parameters:
         name: macos
-        vmImage: 'macOS-10.15'
+        vmImage: 'macOS-latest'
         artifact: macos
         runtime: osx-x64
 
