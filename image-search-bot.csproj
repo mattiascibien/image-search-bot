@@ -1,28 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
-		<RootNamespace>ImageSearchBot</RootNamespace>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="dotenv.net" Version="3.1.1" />
-		<PackageReference Include="GScraper" Version="1.1.0" />
-		<PackageReference Include="Microsoft.Azure.CognitiveServices.Search.BingImageSearch" Version="2.1.0-preview.1" />
-		<PackageReference Include="Telegram.Bot" Version="16.0.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update=".env">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="mikesmother.botconfig.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="sample.botconfig.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>ImageSearchBot</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="dotenv.net" Version="3.1.3" />
+    <PackageReference Include="GScraper" Version="1.1.3" />
+    <PackageReference Include="Microsoft.Azure.CognitiveServices.Search.BingImageSearch" Version="2.1.0-preview.1" />
+    <PackageReference Include="Telegram.Bot" Version="16.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update=".env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="mikesmother.botconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="sample.botconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
